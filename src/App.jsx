@@ -1,35 +1,19 @@
-import './App.css'
-import Dashboard from './components/Dashboard/Dashboard'
-import Login from './components/Login/Login'
-import Preferences from './components/Preferences/Preferences'
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
-import useToken from './customHooks/useToken'
+import { Outlet } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Header from "./components/Header";
 
-function App() {
-  const { token, setToken } = useToken()
-  
-  if (!token) {
-    return <Login setToken={setToken} />
-  }
-  
+const App = () => {
   return (
-    <Router>
-      <div className="App">
-        <ul>
-          <li>
-            <Link to="/">Dashboard</Link>
-          </li>
-          <li>
-            <Link to="/preferences">Preferences</Link>
-          </li>
-        </ul>
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/preferences" element={<Preferences />} />
-        </Routes>
-      </div>
-    </Router>
+    <>
+      <Header />
+      <ToastContainer />
+      <Container className='my-2'>
+        <Outlet />
+      </Container>
+    </>
   )
 }
 
-export default App
+export default App;
